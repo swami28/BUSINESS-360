@@ -1,0 +1,24 @@
+-- Create these as measures in FactSales (one definition at a time).
+-- Sales and costs include negative adjustments in this demo.
+Total Sales = SUM(FactSales[SalesAmount])
+
+Total Cost = SUM(FactSales[CostAmount])
+
+Total Profit = [Total Sales] - [Total Cost]
+
+Profit Margin % = DIVIDE([Total Profit], [Total Sales])
+
+Units Sold = SUM(FactSales[Quantity])
+
+Total Orders = DISTINCTCOUNT(FactSales[OrderID])
+
+Average Order Value = DIVIDE([Total Sales], [Total Orders])
+
+Sales Previous Year =
+CALCULATE(
+    [Total Sales],
+    SAMEPERIODLASTYEAR('DimDate'[Date])
+)
+
+Sales YoY Growth % =
+DIVIDE([Total Sales] - [Sales Previous Year], [Sales Previous Year])
